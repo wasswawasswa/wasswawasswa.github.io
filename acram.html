@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Scripts Collection - Acram Wasswa</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <meta name="description" content="Download free animated movie scripts for your projects. Action, sci-fi, and romance scripts available.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+            min-height: 100vh;
+        }
+        .tab-content { 
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .tab-content.active { 
+            display: block;
+        }
+        .tab-button.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .script-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
+        }
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        .download-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .download-btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        .download-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(30, 30);
+                opacity: 0;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .script-header {
+            position: relative;
+            overflow: hidden;
+        }
+        .script-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        .script-header-content {
+            position: relative;
+            z-index: 2;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .stat-box {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .character-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            top: -150px;
+            right: -150px;
+        }
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            bottom: -100px;
+            left: -100px;
+        }
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .instagram-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 39, 67, 0.3);
+        }
+        .logo-emoji {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-12 relative overflow-hidden">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="logo-emoji">📚</div>
+            <h1 class="text-5xl font-bold text-center mb-4">Free Scripts Collection</h1>
+            <p class="text-center text-xl opacity-90 mb-2">Premium fictional scripts available for free</p>
+            <p class="text-center mt-2 opacity-80">Created by <span class="font-semibold">Acram Wasswa</span></p>
+            
+            <div class="flex justify-center mt-8 space-x-4">
+                <div class="flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2">
+                    <i class="fas fa-download mr-2"></i>
+                    <span>3,542 Downloads</span>
+                </div>
+                <div class="flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2">
+                    <i class="fas fa-star mr-2"></i>
+                    <span>4.8/5 Rating</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex space-x-1 overflow-x-auto">
+                <button onclick="showTab('home')" class="tab-button active px-6 py-4 font-medium text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap">
+                    <i class="fas fa-home mr-2"></i>Home
+                </button>
+                <button onclick="showTab('midnight-heist')" class="tab-button px-6 py-4 font-medium text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap">
+                    <i class="fas fa-moon mr-2"></i>Midnight Heist
+                </button>
+                <button onclick="showTab('stellar-voyage')" class="tab-button px-6 py-4 font-medium text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap">
+                    <i class="fas fa-rocket mr-2"></i>Stellar Voyage
+                </button>
+                <button onclick="showTab('love-letters')" class="tab-button px-6 py-4 font-medium text-gray-700 hover:text-purple-600 transition-colors whitespace-nowrap">
+                    <i class="fas fa-heart mr-2"></i>Love Letters
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Our Animated Script Library</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover three exceptional animated movie scripts, each packed with thrilling action sequences and crafted specifically for animation studios. All scripts are available for free download and use in your animated projects.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Script 1 Preview -->
+                <div class="script-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+                        <div class="floating-shape shape-1" style="width: 150px; height: 150px; top: -75px; right: -75px;"></div>
+                        <i class="fas fa-moon text-white text-5xl z-10"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Action</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i>120 pages</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Midnight Heist</h3>
+                        <p class="text-gray-600 mb-4">An action-packed animated heist featuring high-speed chases, rooftop parkour, and explosive escape sequences.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <div class="text-sm text-gray-500">Action Level</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-purple-600" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Animation Complexity</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-blue-600" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="showTab('midnight-heist')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors download-btn">
+                            Read Script
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Script 2 Preview -->
+                <div class="script-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center relative">
+                        <div class="floating-shape shape-1" style="width: 150px; height: 150px; top: -75px; right: -75px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <i class="fas fa-rocket text-white text-5xl z-10"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Sci-Fi</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i>145 pages</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Stellar Voyage</h3>
+                        <p class="text-gray-600 mb-4">Epic animated space battles, alien creature encounters, and breathtaking zero-gravity action sequences across the cosmos.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <div class="text-sm text-gray-500">Action Level</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-purple-600" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Animation Complexity</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-blue-600" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="showTab('stellar-voyage')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors download-btn">
+                            Read Script
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Script 3 Preview -->
+                <div class="script-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center relative">
+                        <div class="floating-shape shape-1" style="width: 150px; height: 150px; top: -75px; right: -75px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                        <i class="fas fa-heart text-white text-5xl z-10"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2.5 py-0.5 rounded">Romance</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i>98 pages</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Love Letters</h3>
+                        <p class="text-gray-600 mb-4">Romantic drama with wartime resistance action, daring escapes through Paris streets, and emotional animated sequences.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <div class="text-sm text-gray-500">Action Level</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-purple-600" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Animation Complexity</div>
+                                <div class="progress-bar w-full">
+                                    <div class="progress-fill bg-blue-600" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="showTab('love-letters')" class="w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors download-btn">
+                            Read Script
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">What Users Say</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">BB</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Brad Bird</h4>
+                                <p class="text-sm text-gray-500">Animation Director</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"The action sequences in Midnight Heist are perfectly crafted for animation. The pacing and visual descriptions are exceptional."</p>
+                        <div class="flex mt-3">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">MH</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Mamoru Hosoda</h4>
+                                <p class="text-sm text-gray-500">Screenwriter</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"Stellar Voyage offers incredible world-building opportunities. The character development and epic scale are perfect for animation."</p>
+                        <div class="flex mt-3">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg">HM</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Hayao Miyazaki</h4>
+                                <p class="text-sm text-gray-500">Animation Director</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"Love Letters beautifully blends romance with action. The historical setting provides a rich backdrop for animated storytelling."</p>
+                        <div class="flex mt-3">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Midnight Heist Tab -->
+        <div id="midnight-heist" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                    <div class="h-64 script-header bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <div class="script-header-content text-center text-white">
+                            <i class="fas fa-moon text-6xl mb-4"></i>
+                            <h2 class="text-4xl font-bold">Midnight Heist</h2>
+                            <p class="text-lg opacity-90">Animated Action Thriller • 120 pages</p>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Synopsis</h3>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Marcus "The Shadow" Rodriguez has spent fifteen years perfecting the art of the impossible heist. Now, with retirement calling and one last score to settle, he assembles a team of specialists for the ultimate challenge: stealing the Crown Jewels from the most secure vault in London. This animated thriller features spectacular parkour sequences across London rooftops, high-speed motorcycle chases through narrow alleyways, and gravity-defying heist sequences.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                But when his protégé betrays the team and his past catches up with him, Marcus must choose between the biggest payday of his career and the lives of those he's come to call family. The climax features an explosive escape sequence with collapsing buildings, helicopter pursuits, and death-defying leaps across the Thames. Perfect for animation with its dynamic action scenes and stylized character designs.
+                            </p>
+                        </div>
+                        
+                        <div class="stats-grid mb-8">
+                            <div class="stat-box">
+                                <i class="fas fa-clock text-3xl text-purple-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Duration</h4>
+                                <p class="text-gray-600">~120 minutes</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-film text-3xl text-purple-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Animation Style</h4>
+                                <p class="text-gray-600">Stylized Realism</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-bolt text-3xl text-purple-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Action Sequences</h4>
+                                <p class="text-gray-600">12 Major Set Pieces</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-users text-3xl text-purple-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Main Characters</h4>
+                                <p class="text-gray-600">6 Core Team</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Key Characters</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Marcus "The Shadow" Rodriguez</h4>
+                                    <p class="text-gray-600">The mastermind with a code of honor and unparalleled planning skills.</p>
+                                    <div class="mt-2 text-sm text-purple-600">Age: 42 | Skills: Strategy, Parkour</div>
+                                </div>
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Chloe "Whisper" Chen</h4>
+                                    <p class="text-gray-600">The tech genius who can hack any system and provides comms support.</p>
+                                    <div class="mt-2 text-sm text-purple-600">Age: 28 | Skills: Hacking, Electronics</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Script Details</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Number of Scenes</h4>
+                                        <p class="text-gray-600">84</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Dialogue Percentage</h4>
+                                        <p class="text-gray-600">45%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Action Percentage</h4>
+                                        <p class="text-gray-600">55%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Recommended Rating</h4>
+                                        <p class="text-gray-600">PG-13</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="downloadScript('midnight-heist')" class="w-full bg-gray-800 text-white py-3 px-6 rounded-lg hover:bg-gray-900 transition-colors font-semibold download-btn">
+                            <i class="fas fa-download mr-2"></i>Download Script (PDF, 2.4MB)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stellar Voyage Tab -->
+        <div id="stellar-voyage" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                    <div class="h-64 script-header bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center">
+                        <div class="script-header-content text-center text-white">
+                            <i class="fas fa-rocket text-6xl mb-4"></i>
+                            <h2 class="text-4xl font-bold">Stellar Voyage</h2>
+                            <p class="text-lg opacity-90">Animated Sci-Fi Epic • 145 pages</p>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Synopsis</h3>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                In the year 2387, Captain Zara Chen commands the starship Odyssey on humanity's first mission beyond the Milky Way. When they discover an ancient alien artifact that holds the key to faster-than-light travel, they also awaken something that has been dormant for millennia. The script features massive space battles with hundreds of ships, alien creature attacks in zero gravity, and mind-bending reality-warping sequences perfect for animation.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                As reality itself begins to unravel around them, Zara and her diverse crew must navigate asteroid fields, engage in epic lightsaber-style energy weapon duels, and survive explosive decompression sequences. The climax features a spectacular battle across multiple dimensions with shape-shifting alien entities and reality-bending visual effects that showcase the limitless possibilities of animation.
+                            </p>
+                        </div>
+                        
+                        <div class="stats-grid mb-8">
+                            <div class="stat-box">
+                                <i class="fas fa-clock text-3xl text-blue-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Duration</h4>
+                                <p class="text-gray-600">~145 minutes</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-film text-3xl text-blue-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Animation Style</h4>
+                                <p class="text-gray-600">Epic Cosmic</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-bolt text-3xl text-blue-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Action Sequences</h4>
+                                <p class="text-gray-600">15 Major Set Pieces</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-users text-3xl text-blue-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Main Characters</h4>
+                                <p class="text-gray-600">8 Crew Members</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Key Characters</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Captain Zara Chen</h4>
+                                    <p class="text-gray-600">The resilient leader with unmatched piloting skills and strategic mind.</p>
+                                    <div class="mt-2 text-sm text-blue-600">Age: 35 | Skills: Leadership, Piloting</div>
+                                </div>
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Dr. Aris Thorne</h4>
+                                    <p class="text-gray-600">The brilliant xenolinguist who first deciphers the alien technology.</p>
+                                    <div class="mt-2 text-sm text-blue-600">Age: 42 | Skills: Linguistics, Archaeology</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Script Details</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Number of Scenes</h4>
+                                        <p class="text-gray-600">112</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Dialogue Percentage</h4>
+                                        <p class="text-gray-600">40%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Action Percentage</h4>
+                                        <p class="text-gray-600">60%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Recommended Rating</h4>
+                                        <p class="text-gray-600">PG-13</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="downloadScript('stellar-voyage')" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold download-btn">
+                            <i class="fas fa-download mr-2"></i>Download Script (PDF, 3.1MB)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Love Letters Tab -->
+        <div id="love-letters" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                    <div class="h-64 script-header bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
+                        <div class="script-header-content text-center text-white">
+                            <i class="fas fa-heart text-6xl mb-4"></i>
+                            <h2 class="text-4xl font-bold">Love Letters</h2>
+                            <p class="text-lg opacity-90">Animated Historical Drama • 98 pages</p>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Synopsis</h3>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Paris, 1943. Amélie Dubois, a young bookshop owner, discovers a hidden cache of love letters in her late grandmother's attic. As she reads through the passionate correspondence between her grandmother and a mysterious American soldier, she begins to uncover family secrets that span generations. The script features thrilling resistance missions, rooftop escapes across Parisian buildings, and dramatic chase sequences through the city's underground tunnels.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                When Amélie meets Henri, a resistance fighter with its own painful past, their growing romance mirrors the wartime love story in the letters. The climax features an explosive liberation sequence with aerial dogfights over Paris, dramatic bridge explosions, and heart-pounding escape scenes through burning buildings. Perfect for animation with its blend of intimate character moments and spectacular wartime action.
+                            </p>
+                        </div>
+                        
+                        <div class="stats-grid mb-8">
+                            <div class="stat-box">
+                                <i class="fas fa-clock text-3xl text-pink-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Duration</h4>
+                                <p class="text-gray-600">~98 minutes</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-film text-3xl text-pink-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Animation Style</h4>
+                                <p class="text-gray-600">Period Romantic</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-bolt text-3xl text-pink-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Action Sequences</h4>
+                                <p class="text-gray-600">8 Major Set Pieces</p>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-users text-3xl text-pink-600 mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Main Characters</h4>
+                                <p class="text-gray-600">5 Central Characters</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Key Characters</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Amélie Dubois</h4>
+                                    <p class="text-gray-600">The curious bookshop owner who discovers her family's hidden past.</p>
+                                    <div class="mt-2 text-sm text-pink-600">Age: 24 | Skills: Research, Languages</div>
+                                </div>
+                                <div class="character-card">
+                                    <h4 class="font-bold text-lg text-gray-800">Henri Lefevre</h4>
+                                    <p class="text-gray-600">The courageous resistance fighter with a hidden soft side.</p>
+                                    <div class="mt-2 text-sm text-pink-600">Age: 28 | Skills: Combat, Strategy</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Script Details</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Number of Scenes</h4>
+                                        <p class="text-gray-600">76</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Dialogue Percentage</h4>
+                                        <p class="text-gray-600">60%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Action Percentage</h4>
+                                        <p class="text-gray-600">40%</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Recommended Rating</h4>
+                                        <p class="text-gray-600">PG-13</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="downloadScript('love-letters')" class="w-full bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-colors font-semibold download-btn">
+                            <i class="fas fa-download mr-2"></i>Download Script (PDF, 1.8MB)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Download Button -->
+    <button id="floating-download" class="floating-btn gradient-bg text-white p-4 rounded-full hidden">
+        <i class="fas fa-download text-2xl"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                <div class="space-y-2 mb-6">
+                    <p class="flex items-center justify-center space-x-2">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:wasswawasswa459@gmail.com" class="text-blue-400 hover:text-blue-300 transition-colors">
+                            wasswawasswa459@gmail.com
+                        </a>
+                    </p>
+                    <p class="flex items-center justify-center space-x-2">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow me on Instagram</span>
+                        <a href="https://instagram.com/acramhalal" class="text-blue-400 hover:text-blue-300 transition-colors font-semibold">
+                            @acramhalal
+                        </a>
+                    </p>
+                </div>
+                <div class="flex justify-center space-x-4 mb-6">
+                    <a href="https://instagram.com/acramhalal" class="instagram-btn px-4 py-2 rounded-lg flex items-center">
+                        <i class="fab fa-instagram mr-2"></i> Follow on Instagram
+                    </a>
+                </div>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-400">
+                        © 2024 Acram Wasswa. All rights reserved. | Made with <i class="fas fa-heart text-red-400"></i> by Acram Wasswa
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab navigation
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Show/hide floating download button
+            const floatingBtn = document.getElementById('floating-download');
+            if (tabName !== 'home') {
+                floatingBtn.classList.remove('hidden');
+            } else {
+                floatingBtn.classList.add('hidden');
+            }
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Download script function
+        function downloadScript(scriptName) {
+            // In a real implementation, this would link to actual PDF files
+            // For demonstration, we'll create a mock download
+            const scriptData = {
+                'midnight-heist': { name: 'Midnight Heist Script.pdf', size: '2.4MB' },
+                'stellar-voyage': { name: 'Stellar Voyage Script.pdf', size: '3.1MB' },
+                'love-letters': { name: 'Love Letters Script.pdf', size: '1.8MB' }
+            };
+            
+            const script = scriptData[scriptName];
+            
+            // Create a temporary link for download
+            const link = document.createElement('a');
+            link.href = '#'; // In a real implementation, this would be the actual file URL
+            link.download = script.name;
+            
+            // Simulate download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show download confirmation
+            alert(`Thank you for downloading ${script.name} (${script.size})!`);
+        }
+
+        // Initialize progress bars animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars on page load
+            setTimeout(() => {
+                const progressBars = document.querySelectorAll('.progress-fill');
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+
+            // Add hover effects to script cards
+            const cards = document.querySelectorAll('.script-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Floating download button functionality
+            const floatingBtn = document.getElementById('floating-download');
+            floatingBtn.addEventListener('click', function() {
+                // Get current active tab (not home)
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab && activeTab.id !== 'home') {
+                    downloadScript(activeTab.id);
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition > 50) {
+                header.style.transform = `translateY(-${scrollPosition/20}px)`;
+                header.style.opacity = 1 - (scrollPosition / 500);
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = 1;
+            }
+        });
+    </script>
+</body>
+</html>
